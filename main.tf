@@ -15,7 +15,7 @@ resource "aws_iam_user_group_membership" "this" {
 # Create admins group
 
 resource "aws_iam_group" "this" {
-  for_each = [for k, v in var.groups : v.name != "admins"]
+  for_each = local.groups
 
   name = each.key
   path = each.value["path"]
