@@ -14,6 +14,19 @@ resource "aws_iam_user_group_membership" "this" {
 
 # Create admins group
 
+resource "aws_iam_group" "this" {
+  for_each = [for k, v in var.groups : v.name != "admins"]
+
+  name = each.key
+  path = each.value["path"]
+}
+
+resource "aws_iam_group" "admins" {
+  name = "admins"
+  path = "/"
+}
+
+
 # Create users group
 
 # Attach users policy(policies.tf)
