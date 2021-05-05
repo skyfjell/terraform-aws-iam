@@ -33,5 +33,5 @@ jobs:
       - uses: actions/setup-go
       - name: Terratest
         working-directory: test
-        runs: go test
+        run: go test
 
