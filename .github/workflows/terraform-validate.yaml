@@ -35,5 +35,5 @@ jobs:
           go-version: '1.15.2'
       - name: Terratest
         working-directory: test
-        run: go install && go test
+        run: go test
 
