@@ -9,23 +9,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: hashicorp/setup-terraform@v1
-      - run: terraform fmt --recursive
-      - run: terraform validate ./
-      - run: terraform validate ./examples/complete
-  # checkov:
-  #   runs-on: ubuntu-latest
-  #   name: Security check[ov]
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: bridgecrewio/checkov-action@master
-  #       with:
-  #         directory: example/
-  #         check: CKV_AWS_1 # optional: run only a specific check_id. can be comma separated list
-  #         skip_check: CKV_AWS_1 # optional: skip a specific check_id. can be comma separated list
-  #         quiet: true # optional: display only failed checks
-  #         soft_fail: true # optional: do not return an error code if there are failed checks
-  #         framework: terraform
-  #         output_format: json # optional: the output format, one of: cli, json, junitxml, github_failed_only
-  #         download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
-  #         log_level: DEBUG # optional: set log level. Default WARNING
+      - name: Terraform format
+        run: terraform fmt --recursive
+      - name: Terraform Validate Module
+        run: |
+          terraform init -backend=false
+          terraform validate ./
+      - name: Terraform Validate Examples
+        working-directory: examples/complete
+        run: |
+          terraform init -backend=false
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@v12.567.0
 
