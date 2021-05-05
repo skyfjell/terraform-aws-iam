@@ -29,4 +29,9 @@ jobs:
       - name: Run Checkov action
         id: checkov
         uses: bridgecrewio/checkov-action@v12.567.0
+      
+      - uses: actions/setup-go
+      - name: Terratest
+        working-directory: test
+        runs: go test
 
