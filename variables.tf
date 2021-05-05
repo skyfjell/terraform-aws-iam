@@ -1,8 +1,9 @@
 variable "users" {
   description = "List of user objects"
   type = list(object({
-    name = string
-    path = optional(string)
+    name   = string
+    path   = optional(string)
+    groups = optional(list(string))
   }))
 }
 
@@ -16,7 +17,7 @@ variable "groups" {
     condition = alltrue([
       for x in var.groups : !contains(["admins"], x.name)
     ])
-    error_message = "The group `admins` is implicitly created"
+    error_message = "The group `admins` is implicitly created."
   }
 }
 
@@ -25,3 +26,4 @@ variable "labels" {
 
   type = map(any)
 }
+
