@@ -11,15 +11,21 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.L2_INTERNAL_TESTING_SECRET_ACCESS_KEY }}
       AWS_DEFAULT_REGION: "us-east-2"
     steps:
-      - uses: actions/checkout@v2
-      - uses: hashicorp/setup-terraform@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.3.2
+
       - name: Terraform format
         run: terraform fmt -check --recursive
+
       - name: Terraform Validate Examples
         working-directory: examples/complete
         run: |
           terraform init -backend=false
           terraform validate ./
+
       - name: Run Checkov action
         id: checkov
         uses: bridgecrewio/checkov-action@v12.567.0

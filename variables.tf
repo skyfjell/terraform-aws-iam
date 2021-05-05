@@ -14,7 +14,7 @@ variable "groups" {
   }))
 
   validation {
-    condition     = contains([for group in var.groups : group.name], "users") || contains([for group in var.groups : group.name], "admins")
+    condition     = alltrue([for group in var.groups : !contains(["users", "admins"], group.name)])
     error_message = "The `groups` variable elements cannot contain the values `[\"users\", \"admins\"]`."
   }
 }

@@ -12,4 +12,8 @@ module "iam" {
   labels = {
     "testing" : "true"
   }
+
+  providers = {
+    aws = aws.us-east-2
+  }
 }
