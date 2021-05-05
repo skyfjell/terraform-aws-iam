@@ -1,0 +1,39 @@
+name: Terraform Validate
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  cli-validations:
+    runs-on: ubuntu-latest
+    name: Terraform cli validations
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.L2_INTERNAL_TESTING_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.L2_INTERNAL_TESTING_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT_REGION: "us-east-2"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1.3.2
+
+      - name: Terraform format
+        run: terraform fmt -check --recursive
+
+      - name: Terraform Validate Examples
+        working-directory: examples/complete
+        run: |
+          terraform init -backend=false
+          terraform validate ./
+
+      - name: Run Checkov action
+        id: checkov
+        uses: bridgecrewio/checkov-action@v12.567.0
+      
+      - uses: actions/setup-go@v2.1.3
+        with:
+          go-version: '1.15.2'
+      - name: Terratest
+        working-directory: test
+        run: go test
+
