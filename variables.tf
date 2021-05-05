@@ -8,16 +8,14 @@ variable "users" {
 }
 
 variable "groups" {
-  description = "List of group objects"
+  description = "List of group objects. Protected group names: {'admins'}"
   type = list(object({
     name = string
   }))
 
   validation {
-    condition = alltrue([
-      for x in var.groups : !contains(["admins"], x.name)
-    ])
-    error_message = "The group `admins` is implicitly created."
+    condition     = contains([for group in var.groups : group.name], "users") || contains([for group in var.groups : group.name], "admins")
+    error_message = "The `groups` variable elements cannot contain the values `[\"users\", \"admins\"]`."
   }
 }
 

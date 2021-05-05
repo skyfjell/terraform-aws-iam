@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"os"
 	"testing"
 
@@ -15,31 +16,8 @@ func TestTerraformBasicExample(t *testing.T) {
 	defer os.Remove("../test-provider.tf")
 	files.CopyFile("provider.tf", "../test-provider.tf")
 
-	// users := []map[string]interface{}{
-	// 	{
-	// 		"name":   "user1",
-	// 		"groups": []string{"admins", "users"},
-	// 	},
-	// }
-
-	// groups := []map[string]string{
-	// 	{"name": "base"},
-	// 	{"name": "users"},
-	// }
-
-	// labels := map[string]interface{}{
-	// 	"env": "test",
-	// }
-
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "..",
-
-		// // Variables to pass to our Terraform code using -var options
-		// Vars: map[string]interface{}{
-		// 	"users":  users,
-		// 	"groups": groups,
-		// 	"labels": labels,
-		// },
 
 		// // Variables to pass to our Terraform code using -var-file options
 		VarFiles: []string{"./test/test.auto.tfvars.json"},
@@ -57,11 +35,11 @@ func TestTerraformBasicExample(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	// // Run `terraform output` to get the values of output variables
-	// actualTextExample := terraform.Output(t, terraformOptions, "example")
+	actualTextExample := terraform.Output(t, terraformOptions, "groups")
 	// actualTextExample2 := terraform.Output(t, terraformOptions, "example2")
 	// actualExampleList := terraform.OutputList(t, terraformOptions, "example_list")
 	// actualExampleMap := terraform.OutputMap(t, terraformOptions, "example_map")
-
+	fmt.Println(actualTextExample)
 	// // website::tag::3::Check the output against expected values.
 	// // Verify we're getting back the outputs we expect
 	// assert.Equal(t, expectedText, actualTextExample)
