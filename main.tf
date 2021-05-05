@@ -11,7 +11,7 @@ resource "aws_iam_user_group_membership" "this" {
   user   = each.value.name
   groups = each.value.groups
 
-  depends_on = [aws_iam_user.this, aws_iam_group.this]
+  depends_on = [aws_iam_user.this, aws_iam_group.this, aws_iam_group.admins, aws_iam_group.users]
 }
 
 # Create admins group
@@ -22,12 +22,17 @@ resource "aws_iam_group" "this" {
   path     = "/"
 }
 
-# resource "aws_iam_group" "admins" {
-#   name = "admins"
-#   path = "/"
-# }
+resource "aws_iam_group" "admins" {
+  name = "admins"
+  path = "/"
+}
 
 
 # Create users group
+
+resource "aws_iam_group" "users" {
+  name = "users"
+  path = "/"
+}
 
 # Attach users policy(policies.tf)
