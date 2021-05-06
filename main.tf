@@ -36,3 +36,11 @@ resource "aws_iam_group" "users" {
 }
 
 # Attach users policy(policies.tf)
+
+resource "aws_iam_policy" "users-default" {
+  name_prefix = "default-users-policy"
+  path        = "/users/"
+  description = "Default policy for a user to self manage"
+  policy      = data.aws_iam_policy_document.users.json
+}
+

@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
@@ -16,6 +17,10 @@ func TestExamplesComplete(t *testing.T) {
 
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
+
+	actualTextExample := terraform.Output(t, terraformOptions, "groups")
+	fmt.Println(actualTextExample)
+
 }
 
 // func TestNoAdminGroup(t *testing.T) {
@@ -43,7 +48,6 @@ func TestExamplesComplete(t *testing.T) {
 // 	}
 
 // // // Run `terraform output` to get the values of output variables
-// actualTextExample := terraform.Output(t, terraformOptions, "groups")
 // // actualTextExample2 := terraform.Output(t, terraformOptions, "example2")
 // // actualExampleList := terraform.OutputList(t, terraformOptions, "example_list")
 // // actualExampleMap := terraform.OutputMap(t, terraformOptions, "example_map")
