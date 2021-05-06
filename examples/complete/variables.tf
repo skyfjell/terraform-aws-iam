@@ -7,5 +7,3 @@ variable "groups" {
   description = "List of group objects"
   type        = list(any)
 }
-
-
