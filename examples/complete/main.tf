@@ -1,7 +1,6 @@
 provider "aws" {
-  alias   = "us-east-2"
-  region  = "us-east-2"
-  profile = "l2-internal-test"
+  alias  = "us-east-2"
+  region = "us-east-2"
 }
 
 module "iam" {
