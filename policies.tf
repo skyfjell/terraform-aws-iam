@@ -122,7 +122,7 @@ data "aws_iam_policy_document" "users" {
 
 
 
-data "aws_iam_policy_document" "managed_admin" {
+data "aws_iam_policy_document" "managed-admin" {
   statement {
     effect = "Allow"
 
@@ -130,17 +130,17 @@ data "aws_iam_policy_document" "managed_admin" {
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${local.account_id}:root"]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.this.account_id}:root"]
     }
   }
 }
 
-data "aws_iam_policy_document" "assume_admin" {
+data "aws_iam_policy_document" "assume-admin" {
   statement {
     effect = "Allow"
 
     actions   = ["sts:AssumeRole"]
-    resources = [aws_iam_role.this.arn]
+    resources = [aws_iam_role.admin.arn]
   }
 }
 
