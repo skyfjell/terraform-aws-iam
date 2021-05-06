@@ -119,3 +119,28 @@ data "aws_iam_policy_document" "users" {
     }
   }
 }
+
+
+
+data "aws_iam_policy_document" "managed_admin" {
+  statement {
+    effect = "Allow"
+
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${local.account_id}:root"]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "assume_admin" {
+  statement {
+    effect = "Allow"
+
+    actions   = ["sts:AssumeRole"]
+    resources = [aws_iam_role.this.arn]
+  }
+}
+

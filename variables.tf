@@ -25,3 +25,8 @@ variable "labels" {
   type = map(any)
 }
 
+
+variable "account_id" {
+  type        = string
+  description = "Account id"
+}

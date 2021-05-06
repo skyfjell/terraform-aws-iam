@@ -37,10 +37,22 @@ resource "aws_iam_group" "users" {
 
 # Attach users policy(policies.tf)
 
-resource "aws_iam_policy" "users-default" {
+resource "aws_iam_policy" "users_default" {
   name_prefix = "default-users-policy"
   path        = "/users/"
   description = "Default policy for a user to self manage"
   policy      = data.aws_iam_policy_document.users.json
 }
 
+
+resource "aws_iam_policy" "assume_admin" {
+  name_prefix = "assume-admin"
+  description = "Allows to assume role in another AWS account"
+  policy      = data.aws_iam_policy_document.assume_admin.json
+
+}
+
+resource "aws_iam_group_policy_attachment" "this" {
+  group      = aws_iam_group.admins.id
+  policy_arn = aws_iam_policy.assume_admin.arn
+}
