@@ -28,3 +28,8 @@ output "users" {
     }
   }
 }
+
+output "admin-users" {
+  description = "List of users arns that are part of the admin group."
+  value       = [for user in data.aws_iam_group.admins.users : user.arn]
+}

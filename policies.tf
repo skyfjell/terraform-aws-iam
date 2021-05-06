@@ -114,13 +114,24 @@ data "aws_iam_policy_document" "users" {
     condition {
       test     = "BoolIfExists"
       variable = "aws:MultiFactorAuthPresent"
-
-      values = [false]
+      values   = [false]
     }
   }
 }
 
+resource "aws_iam_policy" "users-default" {
+  name_prefix = "default-users-policy"
+  path        = "/users/"
+  description = "Default policy for a user to self manage"
+  policy      = data.aws_iam_policy_document.users.json
+}
 
+resource "aws_iam_policy" "assume-admin" {
+  name_prefix = "assume-admin"
+  description = "Allows to assume role in another AWS account"
+  policy      = data.aws_iam_policy_document.assume-admin.json
+
+}
 
 data "aws_iam_policy_document" "managed-admin" {
   statement {
@@ -130,9 +141,19 @@ data "aws_iam_policy_document" "managed-admin" {
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.this.account_id}:root"]
+      identifiers = [for user in data.aws_iam_group.admins.users : user.arn]
+    }
+
+    condition {
+      test     = "BoolIfExists"
+      variable = "aws:MultiFactorAuthPresent"
+      values   = [true]
     }
   }
+
+  depends_on = [
+    aws_iam_user_group_membership.this
+  ]
 }
 
 data "aws_iam_policy_document" "assume-admin" {
