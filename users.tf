@@ -11,5 +11,10 @@ resource "aws_iam_user_group_membership" "this" {
   user   = each.value.name
   groups = each.value.groups
 
-  depends_on = [aws_iam_user.this, aws_iam_group.this, aws_iam_group.admins, aws_iam_group.users]
+  depends_on = [
+    aws_iam_user.this,
+    aws_iam_group.this,
+    aws_iam_group.admins,
+    aws_iam_group.users
+  ]
 }

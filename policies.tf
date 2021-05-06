@@ -150,10 +150,6 @@ data "aws_iam_policy_document" "managed-admin" {
       values   = [true]
     }
   }
-
-  depends_on = [
-    aws_iam_user_group_membership.this
-  ]
 }
 
 data "aws_iam_policy_document" "assume-admin" {

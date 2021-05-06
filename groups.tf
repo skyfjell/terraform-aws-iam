@@ -26,4 +26,8 @@ resource "aws_iam_role_policy_attachment" "admin" {
 
 data "aws_iam_group" "admins" {
   group_name = aws_iam_group.admins.name
+  depends_on = [
+    aws_iam_user_group_membership.this
+  ]
 }
+
