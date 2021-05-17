@@ -1,32 +1,35 @@
 output "groups" {
   description = "List of group objects with keys 'arn', 'name' and 'unique_id'"
-  value = merge({
-    for group, properties in aws_iam_group.this : group => {
-      name : group
-      arn : properties.arn
-      unique_id : properties.unique_id
-    } }, {
-    (aws_iam_group.admins.name) = {
-      name : aws_iam_group.admins.name
-      arn : aws_iam_group.admins.arn
-      unique_id : aws_iam_group.admins.unique_id
+  value = merge(
+    {
+      for name, group in aws_iam_group.this : name => {
+        name : name
+        arn : group.arn
+        unique_id : group.unique_id
+      }
     },
-    (aws_iam_group.users.name) = {
-      name : aws_iam_group.users.name
-      arn : aws_iam_group.users.arn
-      unique_id : aws_iam_group.users.unique_id
-    }
+    {
+      (aws_iam_group.admins.name) = {
+        name : aws_iam_group.admins.name
+        arn : aws_iam_group.admins.arn
+        unique_id : aws_iam_group.admins.unique_id
+      },
+      (aws_iam_group.users.name) = {
+        name : aws_iam_group.users.name
+        arn : aws_iam_group.users.arn
+        unique_id : aws_iam_group.users.unique_id
+      }
     }
   )
-
 }
 
 output "users" {
   description = "List of users objects with keys 'arn', 'name' and 'unique_id'"
-  value = { for user, properties in aws_iam_user.this : user => {
-    name : user
-    arn : properties.arn
-    unique_id : properties.unique_id
+  value = {
+    for name, user in aws_iam_user.this : name => {
+      name : name
+      arn : user.arn
+      unique_id : user.unique_id
     }
   }
 }
