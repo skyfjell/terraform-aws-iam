@@ -19,6 +19,11 @@ resource "aws_iam_group_policy_attachment" "admins-assume-admin" {
   policy_arn = aws_iam_policy.assume-admin.arn
 }
 
+resource "aws_iam_group_policy_attachment" "admins-readonly" {
+  group      = aws_iam_group.admins.id
+  policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+}
+
 resource "aws_iam_role_policy_attachment" "admin" {
   role       = aws_iam_role.admin.name
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
@@ -30,4 +35,3 @@ data "aws_iam_group" "admins" {
     aws_iam_user_group_membership.this
   ]
 }
-

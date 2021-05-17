@@ -160,4 +160,3 @@ data "aws_iam_policy_document" "assume-admin" {
     resources = [aws_iam_role.admin.arn]
   }
 }
-
