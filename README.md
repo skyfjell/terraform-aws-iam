@@ -6,7 +6,7 @@ This module encapsulates AWS IAM Terrform resources. This module will automatica
 
 ## Examples
 
-See the `examples/complete` for example usage.
+- [Complete](https://github.com/l2solutions/terraform-aws-iam/tree/main/examples/complete)
 
 ## Testing
 
