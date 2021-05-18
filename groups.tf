@@ -29,7 +29,7 @@ resource "aws_iam_role_policy_attachment" "admin" {
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
-resource "aws_iam_group_policy_attachment" "admin" {
+resource "aws_iam_group_policy_attachment" "users" {
   group      = aws_iam_group.users.id
   policy_arn = aws_iam_policy.users-default.arn
 }
