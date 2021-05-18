@@ -107,6 +107,8 @@ data "aws_iam_policy_document" "users" {
       "iam:ListVirtualMFADevices",
       "iam:ResyncMFADevice",
       "sts:GetSessionToken",
+      "iam:GetAccountPasswordPolicy",
+      "iam:ChangePassword",
     ]
 
     resources = ["*"]
