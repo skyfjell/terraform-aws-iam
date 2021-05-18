@@ -22,6 +22,6 @@ variable "groups" {
 variable "labels" {
   description = "value"
 
-  type = map(any)
+  type = optional(map(any))
 }
 
