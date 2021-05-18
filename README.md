@@ -1,7 +1,5 @@
 # terraform-aws-iam
 
-## Outline
-
 This module encapsulates AWS IAM Terrform resources. This module will automatically create an 'admins' group and 'users' group, thus they are protected group names. You can assign IAM users to either groups. Admins have global read only access but can assume true admin through federation.
 
 ## Examples
@@ -15,6 +13,11 @@ You can run the tests locally. You need golang and terraform cli installed. To r
 - `cd test`
 - `go test`
 
+## terraform-docs usage
+
+`sed -i '' '/^<!--- start terraform-docs --->/q' README.md && terraform-docs md . >> README.md`
+
+<!--- start terraform-docs --->
 ## Requirements
 
 | Name | Version |
