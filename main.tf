@@ -1,4 +1,5 @@
 resource "aws_iam_account_password_policy" "this" {
+  #checkov:skip=CKV_AWS_9
   minimum_password_length        = 14
   require_lowercase_characters   = true
   require_numbers                = true
