@@ -8,7 +8,7 @@ variable "users" {
 }
 
 variable "groups" {
-  description = "List of group objects. Protected group names: {'admins'}"
+  description = "List of group objects. Protected group names: {'admins', 'users'}"
   type = list(object({
     name = string
   }))
@@ -19,9 +19,4 @@ variable "groups" {
   }
 }
 
-variable "labels" {
-  description = "value"
-
-  type = map(any)
-}
 
