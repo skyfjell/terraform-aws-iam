@@ -1,5 +1,6 @@
 locals {
   iam-self = "arn:aws:iam::*:user/&{aws:username}"
+  mfa-self = "arn:aws:iam::*:mfa/&{aws:username}"
 }
 
 data "aws_iam_policy_document" "users" {
@@ -81,7 +82,7 @@ data "aws_iam_policy_document" "users" {
       "iam:DeleteVirtualMFADevice",
     ]
 
-    resources = [local.iam-self]
+    resources = [local.iam-self, local.mfa-self]
   }
 
   # AllowManageOwnUserMFA
@@ -93,7 +94,7 @@ data "aws_iam_policy_document" "users" {
       "iam:ResyncMFADevice",
     ]
 
-    resources = [local.iam-self]
+    resources = [local.iam-self, local.mfa-self]
   }
 
   # DenyAllExceptListedIfNoMFA
