@@ -114,8 +114,49 @@ data "aws_iam_policy_document" "users" {
     condition {
       test     = "BoolIfExists"
       variable = "aws:MultiFactorAuthPresent"
-
-      values = [false]
+      values   = [false]
     }
+  }
+}
+
+resource "aws_iam_policy" "users-default" {
+  name_prefix = "default-users-policy"
+  path        = "/users/"
+  description = "Default policy for a user to self manage"
+  policy      = data.aws_iam_policy_document.users.json
+}
+
+resource "aws_iam_policy" "assume-admin" {
+  name_prefix = "assume-admin"
+  description = "Allows to assume role in another AWS account"
+  policy      = data.aws_iam_policy_document.assume-admin.json
+
+}
+
+data "aws_iam_policy_document" "managed-admin" {
+  statement {
+    effect = "Allow"
+
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "AWS"
+      identifiers = [for user in data.aws_iam_group.admins.users : user.arn]
+    }
+
+    condition {
+      test     = "BoolIfExists"
+      variable = "aws:MultiFactorAuthPresent"
+      values   = [true]
+    }
+  }
+}
+
+data "aws_iam_policy_document" "assume-admin" {
+  statement {
+    effect = "Allow"
+
+    actions   = ["sts:AssumeRole"]
+    resources = [aws_iam_role.admin.arn]
   }
 }
