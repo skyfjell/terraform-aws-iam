@@ -38,3 +38,8 @@ output "admin-users" {
   description = "List of users arns that are part of the admin group."
   value       = [for user in data.aws_iam_group.admins.users : user.arn]
 }
+
+output "admin_role" {
+  description = "ARN for the admin role."
+  value       = aws_iam_role.admin.arn
+}
