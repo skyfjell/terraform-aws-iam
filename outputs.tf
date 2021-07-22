@@ -1,5 +1,5 @@
 output "groups" {
-  description = "List of group objects with keys 'arn', 'name' and 'unique_id'"
+  description = "List of group objects with keys 'arn', 'name'(prefixed by labels.id if applicable) and 'unique_id'"
   value = merge(
     {
       for name, group in aws_iam_group.this : name => {
