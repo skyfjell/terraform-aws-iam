@@ -1,16 +1,16 @@
 resource "aws_iam_group" "this" {
   for_each = { for x in local.groups : x.name => x }
-  name     = each.value.name
+  name     = format("%s%s", local.prefix, each.value.name)
   path     = "/"
 }
 
 resource "aws_iam_group" "admins" {
-  name = "admins"
+  name = format("%s%s", local.prefix, "admins")
   path = "/"
 }
 
 resource "aws_iam_group" "users" {
-  name = "users"
+  name = format("%s%s", local.prefix, "users")
   path = "/"
 }
 
