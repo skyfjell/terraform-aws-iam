@@ -9,7 +9,7 @@ resource "aws_iam_user_group_membership" "this" {
   for_each = { for x in local.users : x.name => x }
 
   user   = each.value.name
-  groups = [for k in each.value.groups : format("%s%s", local.prefix, x)]
+  groups = [for x in each.value.groups : format("%s%s", local.prefix, x)]
 
   depends_on = [
     aws_iam_user.this,
