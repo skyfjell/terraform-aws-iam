@@ -11,8 +11,7 @@ variable "users" {
 variable "groups" {
   description = "List of group objects. Protected group names: {'admins', 'users'}"
   type = list(object({
-    name          = string
-    force_destroy = optional(bool)
+    name = string
   }))
 
   validation {
