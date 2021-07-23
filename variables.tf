@@ -1,9 +1,10 @@
 variable "users" {
   description = "List of user objects"
   type = list(object({
-    name   = string
-    path   = optional(string)
-    groups = optional(list(string))
+    name          = string
+    path          = optional(string)
+    groups        = optional(list(string))
+    force_destroy = optional(bool)
   }))
 }
 
