@@ -1,8 +1,9 @@
 resource "aws_iam_user" "this" {
   for_each = { for x in local.users : x.name => x }
 
-  name = each.value.name
-  path = each.value.path
+  name          = each.value.name
+  path          = each.value.path
+  force_destroy = each.value.force_destroy == null ? true : each.value.force_destroy
 }
 
 resource "aws_iam_user_group_membership" "this" {
