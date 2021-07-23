@@ -9,4 +9,8 @@ module "iam" {
   providers = {
     aws = aws.us-east-2
   }
+
+  labels = {
+    id = "test"
+  }
 }

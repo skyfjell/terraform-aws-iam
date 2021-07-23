@@ -2,19 +2,19 @@ output "groups" {
   description = "List of group objects with keys 'arn', 'name'(prefixed by labels.id if applicable) and 'unique_id'"
   value = merge(
     {
-      for name, group in aws_iam_group.this : name => {
+      for name, group in aws_iam_group.this : replace(name, local.prefix, "") => {
         name : name
         arn : group.arn
         unique_id : group.unique_id
       }
     },
     {
-      (aws_iam_group.admins.name) = {
+      "admins" = {
         name : aws_iam_group.admins.name
         arn : aws_iam_group.admins.arn
         unique_id : aws_iam_group.admins.unique_id
       },
-      (aws_iam_group.users.name) = {
+      "users" = {
         name : aws_iam_group.users.name
         arn : aws_iam_group.users.arn
         unique_id : aws_iam_group.users.unique_id
