@@ -1,17 +1,20 @@
 resource "aws_iam_group" "this" {
-  for_each = { for x in local.groups : x.name => x }
-  name     = format("%s%s", local.prefix, each.value.name)
-  path     = "/"
+  for_each      = { for x in local.groups : x.name => x }
+  name          = format("%s%s", local.prefix, each.value.name)
+  path          = "/"
+  force_destroy = each.value.force_destroy == null ? true : each.value.force_destroy
 }
 
 resource "aws_iam_group" "admins" {
-  name = format("%s%s", local.prefix, "admins")
-  path = "/"
+  name          = format("%s%s", local.prefix, "admins")
+  path          = "/"
+  force_destroy = true
 }
 
 resource "aws_iam_group" "users" {
-  name = format("%s%s", local.prefix, "users")
-  path = "/"
+  name          = format("%s%s", local.prefix, "users")
+  path          = "/"
+  force_destroy = true
 }
 
 resource "aws_iam_group_policy_attachment" "admins-assume-admin" {
