@@ -25,7 +25,7 @@ func TestExamplesComplete(t *testing.T) {
 
 	groups := terraform.OutputMapOfObjects(t, terraformOptions, "groups")
 
-	ext_group := groups["external"].(map[string]string)
-	assert.Equal(t, ext_group["name"], "test-external")
+	ext_group := groups["external"].(map[string]interface{})
+	assert.Equal(t, ext_group["name"].(string), "test-external")
 
 }
