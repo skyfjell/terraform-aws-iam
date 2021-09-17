@@ -1,5 +1,8 @@
 # terraform-aws-iam
 
+MOVED TO OMNITEQ
+
+
 This module encapsulates AWS IAM Terrform resources. This module will automatically create an 'admins' group and 'users' group, thus they are protected group names. You can assign IAM users to either groups. Admins have global read only access but can assume true admin through federation.
 
 - [Registry](https://registry.terraform.io/modules/L2Solutions/iam/aws/latest)
