@@ -40,3 +40,23 @@ data "aws_iam_group" "admins" {
     aws_iam_user_group_membership.this
   ]
 }
+
+resource "aws_iam_group" "billing" {
+  name = format("%s%s", local.prefix, "billing")
+  path = "/"
+}
+
+resource "aws_iam_group_policy_attachment" "billing" {
+  group      = aws_iam_group.billing.id
+  policy_arn = "arn:aws:iam::aws:policy/job-function/Billing"
+}
+
+resource "aws_iam_group" "billing-ro" {
+  name = format("%s%s", local.prefix, "billing-ro")
+  path = "/"
+}
+
+resource "aws_iam_group_policy_attachment" "billing-ro" {
+  group      = aws_iam_group.billing-ro.id
+  policy_arn = "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
+}
