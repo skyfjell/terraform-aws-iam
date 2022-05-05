@@ -9,14 +9,14 @@ variable "users" {
 }
 
 variable "groups" {
-  description = "List of group objects. Protected group names: {'admins', 'users'}"
+  description = "List of group objects. Protected group names: ['admins', 'users', 'billing', 'billing-ro']"
   type = list(object({
     name = string
   }))
 
   validation {
-    condition     = alltrue([for group in var.groups : !contains(["users", "admins"], group.name)])
-    error_message = "The `groups` variable elements cannot contain the values `[\"users\", \"admins\"]`."
+    condition     = alltrue([for group in var.groups : !contains(["users", "admins", "billing", "billing-ro"], group.name)])
+    error_message = "The `groups` variable elements cannot contain the values `[\"users\", \"admins\", \"billing\", \"billing-ro\"]`."
   }
 }
 
