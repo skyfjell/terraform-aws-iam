@@ -73,8 +73,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_admin-users"></a> [admin-users](#output\_admin-users) | List of users arns that are part of the admin group. |
-| <a name="output_admin_role"></a> [admin\_role](#output\_admin\_role) | ARN for the admin role. |
+| <a name="output_admin_role"></a> [admin\_role](#output\_admin\_role) | The admin role object. |
+| <a name="output_admin_users"></a> [admin\_users](#output\_admin\_users) | List of users arns that are part of the admin group. |
 | <a name="output_groups"></a> [groups](#output\_groups) | List of group objects with keys 'arn', 'name'(prefixed by labels.id if applicable) and 'unique\_id' |
 | <a name="output_users"></a> [users](#output\_users) | List of users objects with keys 'arn', 'name' and 'unique\_id' |
 <!-- END_TF_DOCS -->
