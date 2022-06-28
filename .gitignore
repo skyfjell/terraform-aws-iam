@@ -32,4 +32,3 @@ override.tf.json
 *.tfstate.*
 .terraform/
 .vscode/
-**/*.terraform.lock.hcl
