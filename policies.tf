@@ -127,13 +127,14 @@ resource "aws_iam_policy" "users-default" {
   path        = "/users/"
   description = "Default policy for a user to self manage"
   policy      = data.aws_iam_policy_document.users.json
+  tags        = local.labels.tags
 }
 
 resource "aws_iam_policy" "assume-admin" {
   name_prefix = format("%s%s", local.prefix, "assume-admin")
   description = "Allows to assume role in another AWS account"
   policy      = data.aws_iam_policy_document.assume-admin.json
-
+  tags        = local.labels.tags
 }
 
 data "aws_iam_policy_document" "managed-admin" {

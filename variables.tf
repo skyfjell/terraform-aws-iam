@@ -22,12 +22,16 @@ variable "groups" {
 
 variable "labels" {
   description = "Instance of labels module"
-  default     = {}
   type = object(
     {
-      id = optional(string)
+      id   = string
+      tags = any
     }
   )
+  default = {
+    id   = ""
+    tags = {}
+  }
 }
 
 variable "enable_password_policy" {
@@ -48,4 +52,10 @@ variable "password_policy" {
     allow_users_to_change_password = optional(bool)
     password_reuse_prevention      = optional(number)
   })
+}
+
+variable "use_prefix" {
+  description = "Use prefix on all names generate by labels module"
+  default     = true
+  type        = bool
 }

@@ -4,6 +4,7 @@ resource "aws_iam_user" "this" {
   name          = each.value.name
   path          = each.value.path
   force_destroy = each.value.force_destroy == null ? true : each.value.force_destroy
+  tags          = local.labels.tags
 }
 
 resource "aws_iam_user_group_membership" "this" {
