@@ -19,8 +19,9 @@ locals {
       password_reuse_prevention      = 24
     },
   )
+  use_prefix = var.use_prefix
 }
 
 locals {
-  prefix = length(local.labels.id) == 0 ? "" : "${local.labels.id}-"
+  prefix = length(local.labels.id) == 0 && local.use_prefix ? "" : "${local.labels.id}-"
 }

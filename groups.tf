@@ -1,6 +1,6 @@
 resource "aws_iam_group" "this" {
-  for_each = { for x in local.groups : x.name => x }
-  name     = format("%s%s", local.prefix, each.value.name)
+  for_each = { for g in local.groups : g.name => format("%s%s", local.prefix, g.name) }
+  name     = each.value
   path     = "/"
 }
 

@@ -1,17 +1,35 @@
-provider "aws" {
-  alias  = "us-east-2"
-  region = "us-east-2"
+variable "users" {
+  description = "List of user objects"
+  type        = list(any)
+}
+
+variable "groups" {
+  description = "List of group objects"
+  type        = list(any)
+}
+
+
+module "labels" {
+  source = "skyfjall/label/null"
+
+  tenant      = "tf"
+  environment = "test"
+  project     = "mods"
+  name        = "aws"
+  app         = "iam"
 }
 
 module "iam" {
   source = "../../"
-  users  = local.users
-  groups = local.groups
-  providers = {
-    aws = aws.us-east-2
-  }
+  users  = var.users
+  groups = var.groups
+  labels = module.labels
+}
 
-  labels = {
-    id = "test"
-  }
+output "admin_users" {
+  value = module.iam.admin_users
+}
+
+output "groups" {
+  value = module.iam.groups
 }

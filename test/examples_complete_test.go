@@ -19,13 +19,13 @@ func TestExamplesComplete(t *testing.T) {
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
 
-	admin_users := terraform.OutputList(t, terraformOptions, "admin-users")
+	admin_users := terraform.OutputList(t, terraformOptions, "admin_users")
 	assert.Equal(t, 1, len(admin_users))
 	assert.Equal(t, true, strings.Contains(admin_users[0], "betty.white"))
 
 	groups := terraform.OutputMapOfObjects(t, terraformOptions, "groups")
 
 	ext_group := groups["external"].(map[string]interface{})
-	assert.Equal(t, ext_group["name"].(string), "test-external")
+	assert.Equal(t, ext_group["name"].(string), "tf-test-mods-aws-iam-external")
 
 }
