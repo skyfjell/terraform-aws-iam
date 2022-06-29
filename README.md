@@ -2,7 +2,7 @@
 
 ## Examples
 
-- [Complete](https://github.com/Skyfjall/terraform-aws-iam/tree/main/examples/complete)
+- [Complete](https://github.com/skyfjell/terraform-aws-iam/tree/main/examples/complete)
 
 ## Testing
 

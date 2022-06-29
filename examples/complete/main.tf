@@ -10,7 +10,7 @@ variable "groups" {
 
 
 module "labels" {
-  source = "skyfjall/label/null"
+  source = "skyfjell/label/null"
 
   tenant      = "tf"
   environment = "test"
