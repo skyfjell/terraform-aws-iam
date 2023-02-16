@@ -3,8 +3,7 @@ locals {
   groups = var.groups
   labels = var.labels
 
-  enable_password_policy = var.enable_password_policy
-  password_policy        = var.password_policy
+  config_password_policy = var.config_password_policy
 
   use_prefix = var.use_prefix
 }

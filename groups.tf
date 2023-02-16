@@ -14,12 +14,17 @@ resource "aws_iam_group" "users" {
   path = "/"
 }
 
+resource "aws_iam_group" "read-only" {
+  name = format("%s%s", local.prefix, "read-only")
+  path = "/"
+}
+
 resource "aws_iam_group_policy_attachment" "admins-assume-admin" {
   group      = aws_iam_group.admins.id
   policy_arn = aws_iam_policy.assume-admin.arn
 }
 
-resource "aws_iam_group_policy_attachment" "admins-readonly" {
+resource "aws_iam_group_policy_attachment" "admins-read-only" {
   group      = aws_iam_group.admins.id
   policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
 }
@@ -34,8 +39,25 @@ resource "aws_iam_group_policy_attachment" "users" {
   policy_arn = aws_iam_policy.users-default.arn
 }
 
+resource "aws_iam_role_policy_attachment" "read-only" {
+  role       = aws_iam_role.read-only.name
+  policy_arn = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+}
+
+resource "aws_iam_group_policy_attachment" "read-only-assume-read-only" {
+  group      = aws_iam_group.read-only.id
+  policy_arn = aws_iam_policy.assume-read-only.arn
+}
+
 data "aws_iam_group" "admins" {
   group_name = aws_iam_group.admins.name
+  depends_on = [
+    aws_iam_user_group_membership.this
+  ]
+}
+
+data "aws_iam_group" "read-only" {
+  group_name = aws_iam_group.read-only.name
   depends_on = [
     aws_iam_user_group_membership.this
   ]

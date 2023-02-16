@@ -18,7 +18,12 @@ output "groups" {
         name : aws_iam_group.users.name
         arn : aws_iam_group.users.arn
         unique_id : aws_iam_group.users.unique_id
-      }
+      },
+      "read-only" = {
+        name : aws_iam_group.read-only.name
+        arn : aws_iam_group.read-only.arn
+        unique_id : aws_iam_group.read-only.unique_id
+      },
     }
   )
 }

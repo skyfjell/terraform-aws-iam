@@ -8,7 +8,6 @@ variable "groups" {
   type        = list(any)
 }
 
-
 module "labels" {
   source = "skyfjell/label/null"
 
@@ -32,4 +31,8 @@ output "admin_users" {
 
 output "groups" {
   value = module.iam.groups
+}
+
+provider "aws" {
+  region = "us-east-2"
 }
