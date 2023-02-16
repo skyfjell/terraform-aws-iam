@@ -16,7 +16,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: terraform-docs-gh-actions
+      - name: Terraform Docs
         uses: terraform-docs/gh-actions@v1.0.0
         with:
           working-dir: .
@@ -29,7 +29,7 @@ jobs:
         with:
           terraform_wrapper: false
 
-      - name: Terraform format
+      - name: Terraform Format
         run: terraform fmt -check --recursive
 
       - name: Terraform Validate Examples

@@ -19,13 +19,13 @@ variable "groups" {
   default = []
 
   validation {
-    condition     = alltrue([for group in var.groups : !contains(["users", "admins", "billing", "billing-ro"], group.name)])
-    error_message = "The `groups` variable elements cannot contain the values `[\"users\", \"admins\", \"billing\", \"billing-ro\"]`."
+    condition     = alltrue([for group in var.groups : !contains(["users", "admins", "billing", "billing-ro", "read-only"], group.name)])
+    error_message = "The `groups` variable elements cannot contain the values `[\"users\", \"admins\", \"billing\", \"billing-ro\", \"read-only\"]`."
   }
 }
 
 variable "labels" {
-  description = "Instance of labels module"
+  description = "Instance of Labels Module"
   type = object(
     {
       id   = optional(string, "")
@@ -35,16 +35,11 @@ variable "labels" {
   default = {}
 }
 
-variable "enable_password_policy" {
-  description = "Whether to enable the password policy resource"
-  type        = bool
-  default     = true
-}
-
-variable "password_policy" {
-  description = "Password policy overrides"
+variable "config_password_policy" {
+  description = "Password Policy"
 
   type = object({
+    enable                         = optional(bool, true)
     minimum_password_length        = optional(number, 14)
     require_lowercase_characters   = optional(bool, true)
     require_numbers                = optional(bool, true)
@@ -59,7 +54,16 @@ variable "password_policy" {
 
 
 variable "use_prefix" {
-  description = "Use prefix on all names generate by labels module"
+  description = "Prefix Resources"
   type        = bool
   default     = true
+}
+
+variable "config_terraform_user" {
+  description = "Create Terraform User/Role"
+  type = object({
+    enable_user = optional(bool, false)
+    enable_role = optional(bool, false)
+  })
+  default = {}
 }

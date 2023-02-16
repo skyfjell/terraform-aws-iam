@@ -132,12 +132,19 @@ resource "aws_iam_policy" "users-default" {
 
 resource "aws_iam_policy" "assume-admin" {
   name_prefix = format("%s%s", local.prefix, "assume-admin")
-  description = "Allows to assume role in another AWS account"
+  description = "Assume Admin Role"
   policy      = data.aws_iam_policy_document.assume-admin.json
   tags        = local.labels.tags
 }
 
-data "aws_iam_policy_document" "managed-admin" {
+resource "aws_iam_policy" "assume-read-only" {
+  name_prefix = format("%s%s", local.prefix, "assume-read-only")
+  description = "Assume Read Only Role"
+  policy      = data.aws_iam_policy_document.assume-read-only.json
+  tags        = local.labels.tags
+}
+
+data "aws_iam_policy_document" "admin-assume-role" {
   statement {
     effect = "Allow"
 
@@ -156,11 +163,39 @@ data "aws_iam_policy_document" "managed-admin" {
   }
 }
 
+data "aws_iam_policy_document" "read-only-assume-role" {
+  statement {
+    effect = "Allow"
+
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "AWS"
+      identifiers = [for user in data.aws_iam_group.read-only.users : user.arn]
+    }
+
+    condition {
+      test     = "BoolIfExists"
+      variable = "aws:MultiFactorAuthPresent"
+      values   = [true]
+    }
+  }
+}
+
 data "aws_iam_policy_document" "assume-admin" {
   statement {
     effect = "Allow"
 
     actions   = ["sts:AssumeRole"]
     resources = [aws_iam_role.admin.arn]
+  }
+}
+
+data "aws_iam_policy_document" "assume-read-only" {
+  statement {
+    effect = "Allow"
+
+    actions   = ["sts:AssumeRole"]
+    resources = [aws_iam_role.read-only.arn]
   }
 }

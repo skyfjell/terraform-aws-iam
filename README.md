@@ -1,5 +1,7 @@
 # Terraform AWS IAM Module
 
+NIST 800-63 compliant IAM user, group, and role configuration.
+
 ## Examples
 
 - [Complete](https://github.com/skyfjell/terraform-aws-iam/tree/main/examples/complete)
@@ -11,6 +13,7 @@ You can run the tests locally. You need golang and terraform cli installed. To r
 - `cd test`
 - `go test`
 
+<!-- prettier-ignore-start -->
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -75,3 +78,4 @@ No modules.
 | <a name="output_groups"></a> [groups](#output\_groups) | List of group objects with keys 'arn', 'name'(prefixed by labels.id if applicable) and 'unique\_id' |
 | <a name="output_users"></a> [users](#output\_users) | List of users objects with keys 'arn', 'name' and 'unique\_id' |
 <!-- END_TF_DOCS -->
+<!-- prettier-ignore-end -->
