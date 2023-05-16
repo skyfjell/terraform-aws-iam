@@ -1,6 +1,6 @@
 locals {
   iam-self = "arn:aws:iam::*:user/&{aws:username}"
-  mfa-self = "arn:aws:iam::*:mfa/&{aws:username}"
+  mfa-self = "arn:aws:iam::*:mfa/&{aws:username}*"
 }
 
 data "aws_iam_policy_document" "users" {
