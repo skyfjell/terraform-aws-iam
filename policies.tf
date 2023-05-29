@@ -103,6 +103,7 @@ data "aws_iam_policy_document" "users" {
     effect = "Deny"
     not_actions = [
       "iam:CreateVirtualMFADevice",
+      "iam:DeleteVirtualMFADevice",
       "iam:EnableMFADevice",
       "iam:GetUser",
       "iam:ListMFADevices",
