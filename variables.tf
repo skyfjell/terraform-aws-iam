@@ -75,7 +75,7 @@ variable "role_config" {
       max_session_duration = optional(number, 1)
     }))
     admin     = optional(map(any))
-    read-only = optional(map(any))
+    read_only = optional(map(any))
   })
   default = {}
 }

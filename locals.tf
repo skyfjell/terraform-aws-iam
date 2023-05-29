@@ -8,10 +8,10 @@ locals {
   use_prefix = var.use_prefix
 
   admin_role_args = {
-    max_session_duration = try(var.role_config.admin.max_session_duration, var.role_config.global.max_session_duration)
+    max_session_duration = try(var.role_config.admin.max_session_duration, var.role_config.global.max_session_duration, 1)
   }
   read_only_role_args = {
-    max_session_duration = try(var.role_config.read_only.max_session_duration, var.role_config.global.max_session_duration)
+    max_session_duration = try(var.role_config.read_only.max_session_duration, var.role_config.global.max_session_duration, 1)
   }
 }
 
