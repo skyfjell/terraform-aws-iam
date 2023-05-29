@@ -67,3 +67,15 @@ variable "config_terraform_user" {
   })
   default = {}
 }
+
+variable "config_role" {
+  description = "Builtin role configurations exposed. `admin` and `read-only` share same type as `global` but will override `global`."
+  type = object({
+    global = optional(object({
+      max_session_duration = optional(number, 3600)
+    }))
+    admin     = optional(map(any))
+    read_only = optional(map(any))
+  })
+  default = {}
+}
