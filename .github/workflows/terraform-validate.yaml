@@ -47,7 +47,7 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: ">=1.17.0"
-
-      - name: Terratest
-        working-directory: test
-        run: go test
+      # No longer have OSS AWS for testing :(
+      # - name: Terratest
+      #   working-directory: test
+      #   run: go test
