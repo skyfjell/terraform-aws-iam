@@ -74,6 +74,7 @@ No modules.
 | <a name="input_config_terraform_user"></a> [config\_terraform\_user](#input\_config\_terraform\_user) | Create Terraform User/Role | <pre>object({<br>    enable_user = optional(bool, false)<br>    enable_role = optional(bool, false)<br>  })</pre> | `{}` | no |
 | <a name="input_groups"></a> [groups](#input\_groups) | List of group objects. Protected group names: ['admins', 'users', 'billing', 'billing-ro'] | <pre>list(object({<br>    name = string<br>  }))</pre> | `[]` | no |
 | <a name="input_labels"></a> [labels](#input\_labels) | Instance of Labels Module | <pre>object(<br>    {<br>      id   = optional(string, "")<br>      tags = optional(any, {})<br>    }<br>  )</pre> | `{}` | no |
+| <a name="input_role_config"></a> [role\_config](#input\_role\_config) | Builtin role configurations exposed. `admin` and `read-only` share same type as `global` but will override `global`. | <pre>object({<br>    global = optional(object({<br>      max_session_duration = optional(number, 1)<br>    }))<br>    admin     = optional(map(any))<br>    read-only = optional(map(any))<br>  })</pre> | `{}` | no |
 | <a name="input_use_prefix"></a> [use\_prefix](#input\_use\_prefix) | Prefix Resources | `bool` | `true` | no |
 | <a name="input_users"></a> [users](#input\_users) | List of user objects | <pre>list(object({<br>    name          = string<br>    path          = optional(string, "/")<br>    groups        = optional(list(string))<br>    force_destroy = optional(bool)<br>  }))</pre> | `[]` | no |
 
